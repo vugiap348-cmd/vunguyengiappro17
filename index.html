@@ -1,1 +1,1198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đề Kiểm Tra Lịch Sử – Đề Số 16</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dark: #8b6914;
+    --parchment: #f5efe0;
+    --parchment-dark: #e8dcc8;
+    --ink: #1a1208;
+    --ink-light: #3d2e10;
+    --red-seal: #8b1a1a;
+    --red-seal-light: #c0392b;
+    --green-ok: #2d6a4f;
+    --bg-dark: #0f0a03;
+    --shadow: rgba(0,0,0,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-dark);
+    color: var(--ink);
+    font-family: 'Crimson Text', serif;
+    font-size: 17px;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(139,26,26,0.05) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .site-header {
+    background: linear-gradient(180deg, #1a0e02 0%, #0f0a03 100%);
+    border-bottom: 2px solid var(--gold-dark);
+    padding: 30px 20px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+  }
+  .site-header .subtitle {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: var(--gold-light);
+    letter-spacing: 3px;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: 0.8;
+  }
+  .site-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 42px);
+    font-weight: 900;
+    color: var(--gold-light);
+    text-shadow: 0 0 40px rgba(201,168,76,0.3), 2px 2px 0 rgba(0,0,0,0.5);
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+  .site-header h1 span { color: var(--parchment); }
+  .ornament {
+    color: var(--gold-dark);
+    font-size: 20px;
+    margin: 8px 0;
+    letter-spacing: 8px;
+    opacity: 0.6;
+  }
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .header-meta span {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: rgba(201,168,76,0.7);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  .timer-bar {
+    background: linear-gradient(135deg, #1a0e02, #2a1a05);
+    border-bottom: 1px solid var(--gold-dark);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .timer-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .timer-icon {
+    width: 36px; height: 36px;
+    border: 2px solid var(--gold-dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    font-size: 16px;
+    animation: pulse-timer 1s ease-in-out infinite;
+  }
+  @keyframes pulse-timer {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(201,168,76,0); }
+  }
+  #timer-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    min-width: 65px;
+    transition: color 0.3s;
+  }
+  #timer-text.warning { color: #e67e22; animation: flicker 0.5s ease-in-out infinite; }
+  #timer-text.danger { color: var(--red-seal-light); }
+  @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+  .timer-label {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: rgba(201,168,76,0.5);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+  .timer-progress {
+    flex: 1;
+    margin: 0 20px;
+    height: 4px;
+    background: rgba(201,168,76,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .timer-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+    border-radius: 2px;
+    transition: width 1s linear, background 0.5s;
+    width: 100%;
+  }
+  .timer-fill.warning { background: linear-gradient(90deg, #c0392b, #e67e22); }
+  .submit-btn-top {
+    background: linear-gradient(135deg, var(--red-seal), var(--red-seal-light));
+    color: var(--parchment);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  .submit-btn-top:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139,26,26,0.5);
+  }
+
+  .main-container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 30px 16px 60px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0 24px;
+  }
+  .section-header::before, .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark));
+  }
+  .section-header::after { background: linear-gradient(90deg, var(--gold-dark), transparent); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    white-space: nowrap;
+  }
+  .section-desc {
+    background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02));
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--gold-dark);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 20px;
+  }
+  .section-desc p {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    color: rgba(201,168,76,0.7);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .q-card {
+    background: linear-gradient(160deg, rgba(245,239,224,0.97), rgba(232,220,200,0.95));
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 24px 26px;
+    margin-bottom: 16px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.5);
+    transition: box-shadow 0.3s;
+  }
+  .q-card:hover { box-shadow: 0 6px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.5); }
+  .q-card.answered { border-color: rgba(201,168,76,0.5); }
+  .q-number-badge {
+    position: absolute;
+    top: -1px; left: -1px;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--ink);
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 8px 0 8px 0;
+    letter-spacing: 1px;
+  }
+  .q-text {
+    font-family: 'Crimson Text', serif;
+    font-size: 16.5px;
+    color: var(--ink);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    padding-top: 8px;
+  }
+
+  .q-passage {
+    background: rgba(139,105,20,0.07);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 6px;
+    padding: 16px 18px 14px 24px;
+    margin-bottom: 16px;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: #3d2e10;
+    line-height: 1.8;
+    position: relative;
+  }
+  .q-passage::before {
+    content: '"';
+    position: absolute;
+    top: -8px; left: 14px;
+    font-size: 48px;
+    color: var(--gold-dark);
+    opacity: 0.4;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+  }
+  .q-passage-source {
+    font-size: 13px;
+    color: rgba(61,46,16,0.6);
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  .q-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+    font-size: 15px;
+    font-family: 'Crimson Text', serif;
+  }
+  .q-table th {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--ink);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .q-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+  .q-table tr:nth-child(even) td { background: rgba(201,168,76,0.05); }
+
+  .options-grid { display: grid; gap: 9px; }
+  .option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 14px;
+    border: 1.5px solid rgba(139,105,20,0.25);
+    border-radius: 6px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.4);
+    transition: all 0.2s;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  .option-label:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+  .option-label input[type="radio"] { display: none; }
+  .option-key {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border: 2px solid var(--gold-dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--gold-dark);
+    transition: all 0.2s;
+    margin-top: 1px;
+  }
+  .option-label.selected { border-color: var(--gold); background: rgba(201,168,76,0.15); box-shadow: inset 0 0 0 1px rgba(201,168,76,0.3); }
+  .option-label.selected .option-key { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  .option-label.correct { border-color: var(--green-ok) !important; background: rgba(45,106,79,0.12) !important; }
+  .option-label.correct .option-key { background: var(--green-ok); color: white; border-color: var(--green-ok); }
+  .option-label.wrong { border-color: var(--red-seal) !important; background: rgba(139,26,26,0.1) !important; }
+  .option-label.wrong .option-key { background: var(--red-seal); color: white; border-color: var(--red-seal); }
+
+  .tf-options { display: grid; gap: 9px; }
+  .tf-item {
+    border: 1.5px solid rgba(139,105,20,0.25);
+    border-radius: 6px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.4);
+  }
+  .tf-statement {
+    font-size: 15.5px;
+    color: var(--ink);
+    line-height: 1.65;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 8px;
+  }
+  .tf-key-letter {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--gold-dark);
+    flex-shrink: 0;
+    font-size: 15px;
+    margin-top: 1px;
+  }
+  .tf-buttons { display: flex; gap: 10px; }
+  .tf-btn {
+    flex: 1;
+    padding: 7px 12px;
+    border: 1.5px solid rgba(139,105,20,0.3);
+    border-radius: 5px;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: var(--ink-light);
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .tf-btn:hover { background: rgba(201,168,76,0.15); border-color: var(--gold-dark); }
+  .tf-btn.selected-true { background: linear-gradient(135deg, rgba(45,106,79,0.2), rgba(45,106,79,0.1)); border-color: var(--green-ok); color: var(--green-ok); }
+  .tf-btn.selected-false { background: linear-gradient(135deg, rgba(139,26,26,0.15), rgba(139,26,26,0.05)); border-color: var(--red-seal); color: var(--red-seal); }
+  .tf-btn.reveal-correct { background: rgba(45,106,79,0.2); border-color: var(--green-ok); color: var(--green-ok); }
+  .tf-btn.reveal-wrong { background: rgba(139,26,26,0.15); border-color: var(--red-seal); color: var(--red-seal); text-decoration: line-through; }
+
+  .progress-bar-outer { background: rgba(201,168,76,0.1); border-radius: 10px; height: 6px; margin: 20px 0 24px; overflow: hidden; }
+  .progress-bar-inner { height: 100%; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); border-radius: 10px; transition: width 0.4s ease; width: 0%; }
+  .progress-text { font-family: 'IM Fell English', serif; font-style: italic; color: rgba(201,168,76,0.5); font-size: 13px; text-align: center; margin-bottom: 6px; }
+
+  .submit-section {
+    text-align: center;
+    margin-top: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, rgba(245,239,224,0.05), rgba(201,168,76,0.03));
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+  }
+  .submit-section p { font-family: 'IM Fell English', serif; font-style: italic; color: rgba(201,168,76,0.6); margin-bottom: 20px; font-size: 15px; line-height: 1.7; }
+  .submit-btn-main {
+    background: linear-gradient(135deg, var(--red-seal), #6b0f0f);
+    color: var(--gold-light);
+    border: 1px solid var(--gold-dark);
+    padding: 14px 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    text-transform: uppercase;
+    margin: 0 10px;
+  }
+  .submit-btn-main:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,26,26,0.5); }
+  .reset-btn {
+    background: transparent;
+    color: rgba(201,168,76,0.5);
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 14px 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    margin: 0 10px;
+  }
+  .reset-btn:hover { border-color: var(--gold-dark); color: var(--gold); }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(10,6,0,0.85);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.active { display: flex; animation: fade-in 0.4s ease; }
+  @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  .modal-box {
+    background: linear-gradient(160deg, #1e1204, #0f0a03);
+    border: 1px solid var(--gold-dark);
+    border-radius: 16px;
+    max-width: 600px;
+    width: 92%;
+    padding: 40px 36px;
+    box-shadow: 0 0 80px rgba(201,168,76,0.2), 0 20px 60px rgba(0,0,0,0.7);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: slide-up 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  @keyframes slide-up { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+  }
+  .modal-seal {
+    width: 80px; height: 80px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+  }
+  .modal-seal.pass { background: radial-gradient(circle, rgba(45,106,79,0.3), rgba(45,106,79,0.1)); border: 2px solid var(--green-ok); }
+  .modal-seal.fail { background: radial-gradient(circle, rgba(139,26,26,0.3), rgba(139,26,26,0.1)); border: 2px solid var(--red-seal); }
+  .modal-seal.mid { background: radial-gradient(circle, rgba(201,168,76,0.3), rgba(201,168,76,0.1)); border: 2px solid var(--gold); }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--gold-light); margin-bottom: 8px; letter-spacing: 1px; }
+  .modal-subtitle { font-family: 'IM Fell English', serif; font-style: italic; color: rgba(201,168,76,0.5); font-size: 14px; letter-spacing: 2px; margin-bottom: 28px; }
+  .score-display { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 10px; padding: 20px; margin-bottom: 24px; }
+  .score-big { font-family: 'Playfair Display', serif; font-size: 58px; font-weight: 900; color: var(--gold-light); line-height: 1; text-shadow: 0 0 30px rgba(201,168,76,0.4); }
+  .score-out-of { font-family: 'Crimson Text', serif; color: rgba(201,168,76,0.5); font-size: 18px; margin-top: 4px; }
+  .score-details { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .score-detail-item { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 10px; border: 1px solid rgba(201,168,76,0.1); }
+  .score-detail-item .label { font-family: 'IM Fell English', serif; font-style: italic; color: rgba(201,168,76,0.4); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 4px; }
+  .score-detail-item .value { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--gold); }
+  .modal-message { font-family: 'Crimson Text', serif; font-size: 16px; color: rgba(201,168,76,0.7); line-height: 1.7; margin-bottom: 28px; font-style: italic; }
+  .modal-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .modal-btn { padding: 12px 24px; border-radius: 6px; cursor: pointer; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 14px; letter-spacing: 1px; transition: all 0.3s; text-transform: uppercase; }
+  .modal-btn-primary { background: linear-gradient(135deg, var(--green-ok), #1a4a33); color: #a8d5b9; border: 1px solid rgba(45,106,79,0.5); }
+  .modal-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,106,79,0.3); }
+  .modal-btn-secondary { background: transparent; color: rgba(201,168,76,0.6); border: 1px solid rgba(201,168,76,0.25); }
+  .modal-btn-secondary:hover { border-color: var(--gold-dark); color: var(--gold); }
+
+  .q-card.result-correct { border-color: rgba(45,106,79,0.5); }
+  .q-card.result-wrong { border-color: rgba(139,26,26,0.5); }
+  .answer-reveal { margin-top: 12px; padding: 10px 14px; border-radius: 6px; font-size: 14px; font-family: 'Crimson Text', serif; display: none; }
+  .answer-reveal.show { display: block; }
+  .answer-reveal.correct { background: rgba(45,106,79,0.1); border: 1px solid rgba(45,106,79,0.3); color: var(--green-ok); }
+  .answer-reveal.wrong { background: rgba(139,26,26,0.08); border: 1px solid rgba(139,26,26,0.25); color: var(--red-seal); }
+  .answer-reveal strong { font-weight: 600; }
+
+  .shuffle-notice { font-family: 'IM Fell English', serif; font-style: italic; color: rgba(201,168,76,0.4); font-size: 13px; text-align: center; margin-bottom: 16px; }
+
+  .timeup-banner { display: none; background: linear-gradient(135deg, var(--red-seal), #6b0f0f); border: 1px solid var(--gold-dark); border-radius: 8px; padding: 16px 24px; text-align: center; margin-bottom: 20px; }
+  .timeup-banner.show { display: block; animation: shake 0.5s ease; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+  .timeup-banner p { color: var(--gold-light); font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; letter-spacing: 2px; }
+
+  @media (max-width: 600px) {
+    .timer-bar { flex-wrap: wrap; gap: 10px; }
+    .timer-progress { width: 100%; order: 3; margin: 0; }
+    .modal-box { padding: 28px 20px; }
+    .score-big { font-size: 46px; }
+    .score-details { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="subtitle">Bài Kiểm Tra Trắc Nghiệm</div>
+  <h1>LỊCH SỬ <span>VIỆT NAM</span></h1>
+  <div class="ornament">✦ ✦ ✦</div>
+  <div class="header-meta">
+    <span>📜 Đề Số 16</span>
+    <span>⏱ Thời gian: 45 phút</span>
+    <span>📝 28 câu hỏi</span>
+  </div>
+</header>
+
+<div class="timer-bar">
+  <div class="timer-display">
+    <div class="timer-icon">⏳</div>
+    <div>
+      <div id="timer-text">45:00</div>
+      <div class="timer-label">Thời gian còn lại</div>
+    </div>
+  </div>
+  <div class="timer-progress">
+    <div class="timer-fill" id="timer-fill"></div>
+  </div>
+  <button class="submit-btn-top" onclick="confirmSubmit()">Nộp Bài</button>
+</div>
+
+<div class="main-container">
+  <div class="timeup-banner" id="timeup-banner">
+    <p>⚔ HẾT THỜI GIAN — Bài đã được tự động nộp ⚔</p>
+  </div>
+
+  <div class="section-header">
+    <div class="section-title">✦ Phần I — Trắc Nghiệm Một Phương Án ✦</div>
+  </div>
+  <div class="section-desc">
+    <p>Thí sinh trả lời câu hỏi từ 1 đến 24. Mỗi câu hỏi thí sinh chỉ chọn <strong>một</strong> phương án đúng. (0.25 điểm / câu)</p>
+  </div>
+
+  <div class="progress-text" id="progress-text">Đã trả lời: 0 / 24 câu (Phần I)</div>
+  <div class="progress-bar-outer"><div class="progress-bar-inner" id="progress-bar1"></div></div>
+
+  <div id="part1-container"></div>
+
+  <div class="section-header" style="margin-top:50px;">
+    <div class="section-title">✦ Phần II — Đúng / Sai ✦</div>
+  </div>
+  <div class="section-desc">
+    <p>Thí sinh trả lời câu hỏi từ 1 đến 4. Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn <strong>Đúng</strong> hoặc <strong>Sai</strong>. (Đúng 1 ý: 0.1đ | 2 ý: 0.25đ | 3 ý: 0.5đ | 4 ý: 1.0đ)</p>
+  </div>
+
+  <div id="part2-container"></div>
+
+  <div class="submit-section">
+    <p>Kiểm tra lại bài làm trước khi nộp.<br>Sau khi nộp, bạn sẽ thấy đáp án chi tiết và điểm số.</p>
+    <button class="submit-btn-main" onclick="confirmSubmit()">⚔ Nộp Bài ⚔</button>
+    <button class="reset-btn" onclick="resetQuiz()">↺ Làm Lại</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="result-modal">
+  <div class="modal-box">
+    <div class="modal-seal" id="modal-seal">🏅</div>
+    <div class="modal-title" id="modal-title">Kết Quả</div>
+    <div class="modal-subtitle" id="modal-subtitle">Hoàn thành bài kiểm tra</div>
+    <div class="score-display">
+      <div class="score-big" id="score-big">0.0</div>
+      <div class="score-out-of">/ 10.0 điểm</div>
+      <div class="score-details">
+        <div class="score-detail-item">
+          <div class="label">Phần I</div>
+          <div class="value" id="score-p1">0/24</div>
+        </div>
+        <div class="score-detail-item">
+          <div class="label">Phần II</div>
+          <div class="value" id="score-p2">0/4</div>
+        </div>
+        <div class="score-detail-item">
+          <div class="label">Thời gian đã dùng</div>
+          <div class="value" id="score-time">--</div>
+        </div>
+        <div class="score-detail-item">
+          <div class="label">Tỉ lệ đúng</div>
+          <div class="value" id="score-pct">0%</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-message" id="modal-message"></div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-primary" onclick="closeModal()">📖 Xem Đáp Án</button>
+      <button class="modal-btn modal-btn-secondary" onclick="resetQuiz()">↺ Làm Lại</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TOTAL_TIME = 45 * 60;
+let timeLeft = TOTAL_TIME;
+let timerInterval = null;
+let submitted = false;
+
+const part1Questions = [
+  {
+    id: 1,
+    text: "Từ năm 2010, GDP của Trung Quốc đứng vị trí thứ mấy trên thế giới?",
+    options: [
+      { key: "A", text: "Thứ 2." },
+      { key: "B", text: "Thứ 3." },
+      { key: "C", text: "Thứ 4." },
+      { key: "D", text: "Thứ 5." }
+    ],
+    answer: "A"
+  },
+  {
+    id: 2,
+    text: "Nguyên nhân nào sau đây dẫn tới một số nước ở châu Á, Đông Âu, Mỹ Latinh lựa chọn con đường đi lên xây dựng chủ nghĩa xã hội?",
+    options: [
+      { key: "A", text: "Chịu hậu quả nặng nề của chủ nghĩa thực dân." },
+      { key: "B", text: "Đáp ứng được yêu cầu thực tiễn của đất nước." },
+      { key: "C", text: "Sự chọn lựa bắt buộc do bị bao vây, cấm vận." },
+      { key: "D", text: "Để nhận được sự viện trợ to lớn từ Liên Xô." }
+    ],
+    answer: "B"
+  },
+  {
+    id: 3,
+    text: "\"Lá cờ thêu sáu chữ vàng\", \"bóp nát quả cam\" là những biểu tượng về người anh hùng nào trong lịch sử dân tộc Việt Nam?",
+    options: [
+      { key: "A", text: "Lý Thường Kiệt." },
+      { key: "B", text: "Trần Quốc Toản." },
+      { key: "C", text: "Trần Quốc Tuấn." },
+      { key: "D", text: "Hồ Nguyên Trừng." }
+    ],
+    answer: "B"
+  },
+  {
+    id: 4,
+    text: "Thời kỳ Bắc thuộc, vũ khí quan trọng để nhân dân Việt Nam đánh bại âm mưu đồng hoá của phong kiến phương Bắc là gì?",
+    options: [
+      { key: "A", text: "Nền kinh tế nông nghiệp phát triển." },
+      { key: "B", text: "Truyền thống yêu nước của người Việt." },
+      { key: "C", text: "Giữ được tất cả phong tục tập quán." },
+      { key: "D", text: "Tiếp thu văn hóa Trung Hoa, Ấn Độ." }
+    ],
+    answer: "B"
+  },
+  {
+    id: 5,
+    text: "Một trong những nội dung của mục tiêu, hành động mang tính toàn cầu đến năm 2030 của Liên hợp quốc là gì?",
+    options: [
+      { key: "A", text: "Chống thất nạn nghiệp." },
+      { key: "B", text: "Quyền tự do chính trị." },
+      { key: "C", text: "Chống bạo lực gia đình." },
+      { key: "D", text: "Chất lượng giáo dục." }
+    ],
+    answer: "D"
+  },
+  {
+    id: 6,
+    text: "Nguyên nhân chủ yếu dẫn tới cục diện hai cực, hai phe sau Chiến tranh thế giới thứ hai là gì?",
+    options: [
+      { key: "A", text: "Do sự đối lập về mục tiêu và chiến lược giữa hai cường quốc Liên Xô và Mĩ." },
+      { key: "B", text: "Mâu thuẫn về vấn đề thị trường và thuộc địa của các nước tư bản chủ nghĩa." },
+      { key: "C", text: "Trật tự thế giới có quá nhiều mâu thuẫn của các nước bại trận và thắng trận." },
+      { key: "D", text: "Âm mưu tiêu diệt Liên Xô của các nước đế quốc để độc chiếm nguồn dầu mỏ." }
+    ],
+    answer: "A"
+  },
+  {
+    id: 7,
+    text: "Trong Chiến tranh thế giới hai (1939 - 1945) các nước Đông Dương là thuộc địa của quốc gia nào sau đây?",
+    options: [
+      { key: "A", text: "Nhật." },
+      { key: "B", text: "Anh." },
+      { key: "C", text: "Pháp." },
+      { key: "D", text: "Mỹ." }
+    ],
+    answer: "A"
+  },
+  {
+    id: 8,
+    text: "Nguyên tắc nào sau đây không được xác định trong Hiệp ước Bali (2-1976) của tổ chức ASEAN?",
+    options: [
+      { key: "A", text: "Giải quyết tranh chấp bằng biện pháp hòa bình." },
+      { key: "B", text: "Không can thiệp vào công việc nội bộ của nhau." },
+      { key: "C", text: "Đẩy mạnh hợp tác về quân sự ở Đông Nam Á." },
+      { key: "D", text: "Hợp tác phát triển có hiệu quả trong các lĩnh vực." }
+    ],
+    answer: "C"
+  },
+  {
+    id: 9,
+    text: "Vấn đề biển Đông có tác động như thế nào đến sự hợp tác và phát triển của Cộng đồng ASEAN?",
+    options: [
+      { key: "A", text: "Thách thức lớn đối với sự phát triển của Cộng đồng ASEAN." },
+      { key: "B", text: "Cần tập hợp sự đoàn kết của các nước ASEAN để giải quyết." },
+      { key: "C", text: "Giúp các nước Đông Nam Á trở thành một khối thống nhất." },
+      { key: "D", text: "Xóa bỏ những mâu thuẫn để cùng nhau hợp tác và phát triển." }
+    ],
+    answer: "A"
+  },
+  {
+    id: 10,
+    text: "Ngày 9-8-1945, quân đội Liên Xô đã tấn công đối tượng nào sau đây?",
+    options: [
+      { key: "A", text: "Quân Đức ở Béc-lin." },
+      { key: "B", text: "Đạo quân Quan Đông." },
+      { key: "C", text: "Nhật ở Đông Dương." },
+      { key: "D", text: "Tàn dư phát xít Đức." }
+    ],
+    answer: "B"
+  },
+  {
+    id: 11,
+    text: "Nội dung nào sau đây là đường lối của cuộc kháng chiến chống Pháp (1945 – 1954) được Đảng Cộng sản Đông Dương đề ra?",
+    options: [
+      { key: "A", text: "Đoàn kết." },
+      { key: "B", text: "Toàn Đảng." },
+      { key: "C", text: "Toàn diện." },
+      { key: "D", text: "Toàn quốc." }
+    ],
+    answer: "C"
+  },
+  {
+    id: 12,
+    text: "Nội dung nào sau đây phản ánh đúng âm mưu của Mỹ khi giữ lại hơn 2 vạn cố vấn ở miền Nam Việt Nam sau Hiệp định Paris 1973?",
+    options: [
+      { key: "A", text: "Tiếp tục Việt Nam hóa chiến tranh." },
+      { key: "B", text: "Khắc phục hậu quả của chiến tranh." },
+      { key: "C", text: "Thừa nhận sự thất bại ở Việt Nam." },
+      { key: "D", text: "Từ bỏ chiến tranh ở Đông Dương." }
+    ],
+    answer: "A"
+  },
+  {
+    id: 13,
+    text: "Thủ đoạn mới được Mỹ sử dụng trong chiến lược Việt Nam hóa chiến tranh (1969-1973) là",
+    options: [
+      { key: "A", text: "trực thăng vận và thiết xa vận." },
+      { key: "B", text: "tiến hành thỏa hiệp với Liên Xô." },
+      { key: "C", text: "xây dựng nhiều ấp chiến lược." },
+      { key: "D", text: "tiến hành phá hoại miền Bắc." }
+    ],
+    answer: "B"
+  },
+  {
+    id: 14,
+    text: "Đường lối đổi mới ở Việt Nam từ năm 1986 khẳng định, đổi mới là",
+    options: [
+      { key: "A", text: "thay đổi quan niệm về chủ nghĩa xã hội." },
+      { key: "B", text: "không thay đổi mục tiêu xã hội chủ nghĩa." },
+      { key: "C", text: "lấy chính trị, xã hội là nhiệm vụ trọng tâm." },
+      { key: "D", text: "từng bước xoá bỏ cơ chế quản lí kinh tế cũ." }
+    ],
+    answer: "B"
+  },
+  {
+    id: 15,
+    text: "Nguyên nhân chủ quan nào sau đây thúc đẩy Đảng Cộng sản Việt Nam tiến hành sự nghiệp đổi mới đất nước (từ năm 1986)?",
+    options: [
+      { key: "A", text: "Liên Xô và các nước Đông Âu đã tan rã một cách nhanh chóng." },
+      { key: "B", text: "Xu thế khu vực hóa đã xuất hiện và ngày càng diễn ra mạnh mẽ." },
+      { key: "C", text: "Cuộc khủng hoảng kinh tế – xã hội ở Việt Nam trở nên trầm trọng." },
+      { key: "D", text: "Công cuộc cải cách mở cửa ở Trung Quốc đạt nhiều thành tựu lớn." }
+    ],
+    answer: "C"
+  },
+  {
+    id: 16,
+    text: "Năm 1950, quốc gia xã hội chủ nghĩa đầu tiên trên thế giới thiết lập quan hệ ngoại giao với Việt Nam Dân chủ Cộng hòa là",
+    options: [
+      { key: "A", text: "Liên Xô." },
+      { key: "B", text: "Trung Quốc." },
+      { key: "C", text: "Triều Tiên." },
+      { key: "D", text: "Tiệp Khắc." }
+    ],
+    answer: "B"
+  },
+  {
+    id: 17,
+    text: "Trong Chiến tranh thế giới thứ hai, Đảng Cộng sản Đông Dương đã ủng hộ lực lượng nào sau đây?",
+    options: [
+      { key: "A", text: "Khối Hiệp ước." },
+      { key: "B", text: "Phe Đồng minh." },
+      { key: "C", text: "Khối Liên minh." },
+      { key: "D", text: "Các nước Đông Âu." }
+    ],
+    answer: "B"
+  },
+  {
+    id: 18,
+    text: "Nội dung nào sau đây phản ánh đúng kết quả mà cách mạng Việt Nam đạt được khi ký Hiệp định Giơ-ne-vơ năm 1954?",
+    options: [
+      { key: "A", text: "Thống nhất đất nước." },
+      { key: "B", text: "Miền Bắc giải phóng." },
+      { key: "C", text: "Miền Nam giải phóng." },
+      { key: "D", text: "Đánh bại đế quốc Mỹ." }
+    ],
+    answer: "B"
+  },
+  {
+    id: 19,
+    text: "Nội dung nào sau đây phản ánh không đúng về yếu tố quê hương, gia đình ảnh hưởng đến cuộc đời, sự nghiệp cách mạng của Hồ Chí Minh?",
+    options: [
+      { key: "A", text: "Các tân thư, tân báo và tư tưởng mới du nhập." },
+      { key: "B", text: "Truyền thống yêu nước của quê hương Nghệ An." },
+      { key: "C", text: "Sự giáo dục chuẩn mực của thân phụ và thân mẫu." },
+      { key: "D", text: "Truyền thống hiếu học, khoa bảng ở đất Nam Đàn." }
+    ],
+    answer: "A"
+  },
+  {
+    id: 20,
+    text: "Những hoạt động đối ngoại của Chủ tịch Hồ Chí Minh trong giai đoạn 1945 – 1969 không có tác dụng nào sau đây đối với cuộc kháng chiến chống Pháp và chống Mỹ?",
+    options: [
+      { key: "A", text: "Nhận được viện trợ lớn từ Liên Xô, Trung Quốc." },
+      { key: "B", text: "Tranh thủ sự đồng tình, ủng hộ của bạn bè quốc tế." },
+      { key: "C", text: "Củng cố và duy trì khối đại đoàn kết toàn dân tộc." },
+      { key: "D", text: "Thể hiện lập trường chính nghĩa của kháng chiến." }
+    ],
+    answer: "C"
+  },
+  {
+    id: 21,
+    text: "Nhận định nào sau đây là đúng về chủ trương tiến hành các hoạt động ngoại giao của Chủ tịch Hồ Chí Minh trong giai đoạn 1945 - 1969?",
+    options: [
+      { key: "A", text: "Ngoại giao phải dựa vào nội lực và tranh thủ ngoại lực, phát huy tính chính nghĩa." },
+      { key: "B", text: "Ngoại giao phải lấy quân sự làm nền tảng, xây dựng sức mạnh quân sự để răn đe." },
+      { key: "C", text: "Ngoại giao chỉ mở ở giai đoạn cuối của cuộc kháng chiến để tiết kiệm xương máu." },
+      { key: "D", text: "Ngoại giao cần dựa vào sự ủng hộ của khối xã hội chủ nghĩa, Liên Xô, Trung Quốc." }
+    ],
+    answer: "A"
+  },
+  {
+    id: 22,
+    text: "Nhận định nào sau đây là đúng về thành tựu của công cuộc đổi mới đất nước Việt Nam được tiến hành từ năm 1986?",
+    options: [
+      { key: "A", text: "Việt Nam đã nhanh chóng trở thành một nước phát triển." },
+      { key: "B", text: "Việt Nam đã khẳng định được vị thế đứng đầu ở Châu Á." },
+      { key: "C", text: "Việt Nam đã thoát nghèo, trở thành nước công nghiệp mới." },
+      { key: "D", text: "Việt Nam có sự phát triển nhanh chóng trong công cuộc Đổi mới." }
+    ],
+    answer: "D"
+  },
+  {
+    id: 23,
+    text: "Từ những thắng lợi của Cách mạng Việt Nam trong kháng chiến chống Pháp và chống Mĩ, bài học kinh nghiệm quan trọng nhất cho công cuộc xây dựng và bảo vệ tổ quốc hiện nay là",
+    options: [
+      { key: "A", text: "sự lãnh đạo của Đảng là nhân tố hàng đầu quyết định thắng lợi của cách mạng Việt Nam." },
+      { key: "B", text: "thực hiện hai nhiệm vụ trọng tâm là kháng chiến và kiến quốc luôn song song với nhau." },
+      { key: "C", text: "đặt lực lượng vũ trang trong tình trạng sẵn sàng chiến đấu chống xâm lược từ bên ngoài." },
+      { key: "D", text: "tăng cường quan hệ ngoại giao với các nước Đông Âu để tranh thủ sự ủng hộ của quốc tế." }
+    ],
+    answer: "A"
+  },
+  {
+    id: 24,
+    text: "Bài học sau đây được rút ra từ sự thành công của các nước công nghiệp mới mà Việt Nam có thể áp dụng để hội nhập thành công với thế giới?",
+    options: [
+      { key: "A", text: "Xây dựng kinh tế hướng ngoại, chú trọng xuất khẩu." },
+      { key: "B", text: "Liên kết, hợp tác chặt chẽ với các nước phát triển." },
+      { key: "C", text: "Tìm kiếm những nguồn nhiên - nguyên liệu mới." },
+      { key: "D", text: "Tham gia các cơ quan chuyên môn của Liên hợp quốc." }
+    ],
+    answer: "A"
+  }
+];
+
+const part2Questions = [
+  {
+    id: 1,
+    intro: "Cho những thông tin trong bảng sau đây:",
+    tableData: {
+      headers: ["Thời gian", "Nội dung"],
+      rows: [
+        ["Năm 1960", "Đồng khởi thắng lợi, đánh bại chiến tranh đơn phương của Mỹ."],
+        ["Năm 1964", "Chiến thắng Bình Giã, làm phá sản cơ bản chiến tranh đặc biệt của Mỹ."],
+        ["Năm 1968", "Thắng lợi Mậu Thân, đánh bại chiến tranh cục bộ của Mỹ."],
+        ["Năm 1972", "Cuộc tiến công chiến lược thắng lợi, làm phá sản cơ bản Việt Nam hóa chiến tranh của Mỹ."],
+        ["Năm 1975", "Thắng lợi của cuộc Tổng tiến công và nổi dậy mùa xuân 1975, thống nhất đất nước."]
+      ]
+    },
+    items: [
+      { key: "a", text: "Tư liệu đề cập đến những thắng lợi tiêu biểu trên mặt trận quân sự trong cuộc kháng chiến chống Mỹ của nhân dân Việt Nam.", answer: true },
+      { key: "b", text: "Mỗi thắng lợi trên mặt trận quân sự trong bảng tư liệu trên đều góp phần tạo điều kiện cho thắng lợi trên mặt trận ngoại giao.", answer: false },
+      { key: "c", text: "Chiến thắng Mậu Thân 1968 đã mở ra cục diện vừa đánh vừa đàm trong cuộc kháng chiến chống Mỹ của nhân dân Việt Nam.", answer: true },
+      { key: "d", text: "Những thắng lợi trên mặt trận quân sự có tác động quyết định đối với thắng lợi của cuộc kháng chiến chống Mỹ cứu nước.", answer: true }
+    ]
+  },
+  {
+    id: 2,
+    intro: "Cho đoạn tư liệu sau đây:",
+    passage: "Quá trình xây dựng khối đoàn kết toàn dân tộc, không tách rời việc củng cố và phát triển các tổ chức chính trị, xã hội. Trên tinh thần Nghị quyết của Đại hội Đảng lần thứ VI, hàng loạt Nghị quyết đã được ban hành nhằm thúc đẩy xây dựng khối đoàn kết toàn dân tộc, như Nghị quyết ngày 3-2-1990 về việc thành lập Hội Cựu chiến binh Việt Nam; Thông tri của Ban Bí thư cùng ngày về việc tổ chức góp ý kiến vào văn kiện Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 8 về công tác dân vận; Nghị quyết Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 8 (27-3-1990) về đổi mới công tác quần chúng của Đảng..",
+    passageSource: "Nguyễn Ngọc Mão (Chủ biên), Lịch sử Việt Nam, tập 15, NXB. Khoa học xã hội 2017, tr. 86",
+    items: [
+      { key: "a", text: "Tư liệu đề cập đến quan điểm xây dựng, củng cố, phát triển khối đại đoàn kết dân tộc trong công cuộc đổi mới ở Việt Nam.", answer: true },
+      { key: "b", text: "Trong công cuộc đổi mới đất nước, khối đại đoàn kết dân tộc đã được hình thành thông qua xây dựng mặt trận dân tộc.", answer: false },
+      { key: "c", text: "Việc xây dựng các tổ chức chính trị, xã hội, tổ chức quần chúng nhằm thúc đẩy xây dựng khối đại đoàn kết dân tộc.", answer: true },
+      { key: "d", text: "Hiện nay, khối đại đoàn kết dân tộc vẫn được phát huy cao độ trong đấu tranh giải phóng dân tộc và bảo vệ tổ quốc.", answer: false }
+    ]
+  },
+  {
+    id: 3,
+    intro: "Cho đoạn tư liệu sau đây:",
+    passage: "Ngày 2-1-1950, Chủ tịch Hồ Chí Minh đi Trung Quốc, ngày 14-1-1950 Chủ tịch Hồ Chí Minh tuyên bố sẵn sàng thiết lập quan hệ ngoại giao với các nước trên thế giới và khẳng định \"Chính phủ Việt Nam Dân chủ Cộng hòa là chính phủ hợp pháp duy nhất của toàn thể nhân dân Việt Nam. Căn cứ trên quyền lợi chung, Chính phủ Việt Nam dân chủ cộng hòa sẵn sang đặt quan hệ ngoại giao với chính phủ nước nào tôn trọng quyền bình đẳng, chủ quyền lãnh thổ và chủ quyền quốc gia của nước Việt Nam để cùng nhau bảo vệ hòa bình và xây đắp nền dân chủ thế giới\".",
+    passageSource: "Phạm Đức Thuận: Giáo trình Lịch sử ngoại giao Việt Nam, NXB Đại học Cần Thơ, 2018, tr 117",
+    items: [
+      { key: "a", text: "Tư liệu đề cập đến chính sách và quan điểm ngoại giao của Việt Nam trong cuộc kháng chiến chống Mỹ.", answer: false },
+      { key: "b", text: "Từ năm 1950, Việt Nam Dân chủ cộng hòa đã được nhiều nước công nhận và đặt quan hệ ngoại giao.", answer: true },
+      { key: "c", text: "Quan điểm của ngoại giao Việt Nam là hòa bình, tôn trọng các quyền dân tộc cơ bản của các quốc gia.", answer: true },
+      { key: "d", text: "Ngoại giao trong kháng chiến chống Pháp và chống Mỹ đều đóng vai trò quyết định đưa đến thắng lợi cuối cùng.", answer: false }
+    ]
+  },
+  {
+    id: 4,
+    intro: "Cho đoạn tư liệu sau đây:",
+    passage: "Hiến chương Liên Hợp Quốc quy định mục đích cao nhất của Liên Hợp Quốc là nhằm duy trì hòa bình, an ninh thế giới. Để thực hiện những mục đích trên, Hiến chương quy định Liên Hợp Quốc sẽ hành động dựa theo những nguyên tắc: chủ quyền bình đẳng giữa các quốc gia và quyền dân tộc tự quyết; tôn trọng toàn vẹn lãnh thổ và độc lập chính trị của tất cả các nước; giải quyết các tranh chấp quốc tế bằng phương pháp hoà bình; chung sống hoà bình và đảm bảo sự nhất trí giữa 5 cường quốc (Liên Xô, Mĩ, Anh, Pháp, Trung Quốc); Liên Hợp Quốc không can thiệp vào công việc nội bộ của bất cứ nước nào.",
+    passageSource: "Nguyễn Anh Thái: Lịch sử thế giới hiện đại (1917 - 1995), NXB Giáo dục Việt Nam, Hà Nội, 2006, tr227",
+    items: [
+      { key: "a", text: "Đoạn tư liệu phản ánh mục đích, nguyên tắc hoạt động của tổ chức Liên hợp quốc.", answer: true },
+      { key: "b", text: "Mục đích hoạt động của Liên hợp quốc là đảm bảo sự nhất trí giữa năm cường quốc.", answer: false },
+      { key: "c", text: "Liên hợp quốc là tổ chức quốc tế lớn nhất, giữ vai trò duy trì hòa bình, an ninh quốc tế.", answer: true },
+      { key: "d", text: "Liên hợp quốc đã giải quyết tốt mọi tranh chấp quốc tế bằng phương pháp hòa bình.", answer: false }
+    ]
+  }
+];
+
+let p1Answers = {};
+let p2Answers = {};
+let shuffledP1Indices = [...Array(part1Questions.length).keys()];
+
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function renderPart1() {
+  shuffleArray(shuffledP1Indices);
+  const container = document.getElementById('part1-container');
+  container.innerHTML = '';
+  shuffledP1Indices.forEach((origIdx, displayIdx) => {
+    const q = part1Questions[origIdx];
+    const opts = [...q.options];
+    shuffleArray(opts);
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `p1-card-${q.id}`;
+    let optHtml = opts.map(o => `
+      <label class="option-label" id="p1-lbl-${q.id}-${o.key}" onclick="selectP1(${q.id}, '${o.key}', this)">
+        <input type="radio" name="p1q${q.id}" value="${o.key}">
+        <span class="option-key">${o.key}</span>
+        <span>${o.text}</span>
+      </label>
+    `).join('');
+    card.innerHTML = `
+      <div class="q-number-badge">Câu ${displayIdx + 1}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="options-grid">${optHtml}</div>
+      <div class="answer-reveal" id="p1-reveal-${q.id}"></div>
+    `;
+    container.appendChild(card);
+  });
+  updateProgress();
+}
+
+function renderPart2() {
+  const container = document.getElementById('part2-container');
+  container.innerHTML = '';
+  part2Questions.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `p2-card-${q.id}`;
+    let introHtml = `<div class="q-text">${q.intro}</div>`;
+    let contentHtml = '';
+    if (q.tableData) {
+      let rows = q.tableData.rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('');
+      let headers = q.tableData.headers.map(h => `<th>${h}</th>`).join('');
+      contentHtml = `<table class="q-table"><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table>`;
+    } else if (q.passage) {
+      contentHtml = `<div class="q-passage">${q.passage}<div class="q-passage-source">${q.passageSource}</div></div>`;
+    }
+    let itemsHtml = q.items.map(item => `
+      <div class="tf-item" id="p2-item-${q.id}-${item.key}">
+        <div class="tf-statement">
+          <span class="tf-key-letter">${item.key})</span>
+          <span>${item.text}</span>
+        </div>
+        <div class="tf-buttons">
+          <button class="tf-btn" id="p2-true-${q.id}-${item.key}" onclick="selectP2(${q.id}, '${item.key}', true, this)">✓ ĐÚNG</button>
+          <button class="tf-btn" id="p2-false-${q.id}-${item.key}" onclick="selectP2(${q.id}, '${item.key}', false, this)">✗ SAI</button>
+        </div>
+      </div>
+    `).join('');
+    card.innerHTML = `
+      <div class="q-number-badge">Câu ${idx + 1}</div>
+      ${introHtml}
+      ${contentHtml}
+      <div class="tf-options">${itemsHtml}</div>
+      <div class="answer-reveal" id="p2-reveal-${q.id}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function selectP1(qId, key, labelEl) {
+  if (submitted) return;
+  p1Answers[qId] = key;
+  const q = part1Questions.find(q => q.id === qId);
+  q.options.forEach(o => {
+    const lbl = document.getElementById(`p1-lbl-${qId}-${o.key}`);
+    if (lbl) lbl.classList.remove('selected');
+  });
+  labelEl.classList.add('selected');
+  document.getElementById(`p1-card-${qId}`).classList.add('answered');
+  updateProgress();
+}
+
+function selectP2(qId, itemKey, value, btn) {
+  if (submitted) return;
+  const stateKey = `${qId}_${itemKey}`;
+  p2Answers[stateKey] = value;
+  const trueBtn = document.getElementById(`p2-true-${qId}-${itemKey}`);
+  const falseBtn = document.getElementById(`p2-false-${qId}-${itemKey}`);
+  trueBtn.className = 'tf-btn';
+  falseBtn.className = 'tf-btn';
+  if (value === true) trueBtn.classList.add('selected-true');
+  else falseBtn.classList.add('selected-false');
+}
+
+function updateProgress() {
+  const answered = Object.keys(p1Answers).length;
+  document.getElementById('progress-text').textContent = `Đã trả lời: ${answered} / 24 câu (Phần I)`;
+  document.getElementById('progress-bar1').style.width = (answered / 24 * 100) + '%';
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    document.getElementById('timer-text').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    document.getElementById('timer-fill').style.width = (timeLeft / TOTAL_TIME * 100) + '%';
+    const timerEl = document.getElementById('timer-text');
+    const fillEl = document.getElementById('timer-fill');
+    if (timeLeft <= 300) { timerEl.className = 'danger'; fillEl.className = 'timer-fill warning'; }
+    else if (timeLeft <= 600) { timerEl.className = 'warning'; }
+    if (timeLeft <= 0) { clearInterval(timerInterval); autoSubmit(); }
+  }, 1000);
+}
+
+function autoSubmit() {
+  document.getElementById('timeup-banner').classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => { doSubmit(); }, 1500);
+}
+
+function confirmSubmit() { if (submitted) return; doSubmit(); }
+
+function doSubmit() {
+  if (submitted) return;
+  submitted = true;
+  clearInterval(timerInterval);
+  const usedSeconds = TOTAL_TIME - timeLeft;
+  const timeUsed = `${Math.floor(usedSeconds/60)}p${String(usedSeconds%60).padStart(2,'0')}s`;
+
+  document.querySelectorAll('.tf-btn, .option-label').forEach(el => { el.style.pointerEvents = 'none'; });
+
+  let p1Correct = 0;
+  part1Questions.forEach(q => {
+    const userAns = p1Answers[q.id];
+    const card = document.getElementById(`p1-card-${q.id}`);
+    const reveal = document.getElementById(`p1-reveal-${q.id}`);
+    if (userAns === q.answer) {
+      p1Correct++;
+      const lbl = document.getElementById(`p1-lbl-${q.id}-${userAns}`);
+      if (lbl) lbl.classList.add('correct');
+      card.classList.add('result-correct');
+      reveal.innerHTML = `<strong>✓ Đúng!</strong> Đáp án: <strong>${q.answer}</strong>`;
+      reveal.className = 'answer-reveal show correct';
+    } else {
+      card.classList.add('result-wrong');
+      if (userAns) { const lw = document.getElementById(`p1-lbl-${q.id}-${userAns}`); if (lw) lw.classList.add('wrong'); }
+      const lc = document.getElementById(`p1-lbl-${q.id}-${q.answer}`); if (lc) lc.classList.add('correct');
+      reveal.innerHTML = userAns ? `<strong>✗ Sai.</strong> Bạn chọn <strong>${userAns}</strong> — Đáp án đúng: <strong>${q.answer}</strong>` : `<strong>✗ Chưa trả lời.</strong> Đáp án đúng: <strong>${q.answer}</strong>`;
+      reveal.className = 'answer-reveal show wrong';
+    }
+  });
+
+  let p2Total = 0;
+  part2Questions.forEach(q => {
+    let correctCount = 0;
+    q.items.forEach(item => {
+      const userVal = p2Answers[`${q.id}_${item.key}`];
+      const isCorrect = userVal === item.answer;
+      if (isCorrect) correctCount++;
+      const trueBtn = document.getElementById(`p2-true-${q.id}-${item.key}`);
+      const falseBtn = document.getElementById(`p2-false-${q.id}-${item.key}`);
+      trueBtn.className = 'tf-btn'; falseBtn.className = 'tf-btn';
+      const correctBtn = item.answer === true ? trueBtn : falseBtn;
+      correctBtn.classList.add('reveal-correct');
+      if (userVal !== null && userVal !== undefined && !isCorrect) {
+        const wrongBtn = item.answer === true ? falseBtn : trueBtn;
+        wrongBtn.classList.add('reveal-wrong');
+      }
+    });
+    let qScore = correctCount === 4 ? 1.0 : correctCount === 3 ? 0.5 : correctCount === 2 ? 0.25 : correctCount === 1 ? 0.1 : 0;
+    p2Total += qScore;
+    const reveal = document.getElementById(`p2-reveal-${q.id}`);
+    const msgMap = {4:'✓ Tuyệt vời! Đúng 4/4 ý',3:'✓ Khá tốt! Đúng 3/4 ý',2:'Đúng 2/4 ý',1:'Đúng 1/4 ý',0:'✗ Không có ý nào đúng'};
+    reveal.innerHTML = `<strong>${msgMap[correctCount]}</strong> — ${qScore} điểm`;
+    reveal.className = `answer-reveal show ${correctCount >= 3 ? 'correct' : 'wrong'}`;
+  });
+
+  const total = Math.round((p1Correct * 0.25 + p2Total) * 10) / 10;
+  showResultModal(p1Correct, p2Total, total, timeUsed);
+}
+
+function showResultModal(p1Correct, p2Total, total, timeUsed) {
+  const seal = document.getElementById('modal-seal');
+  const title = document.getElementById('modal-title');
+  const subtitle = document.getElementById('modal-subtitle');
+  const msg = document.getElementById('modal-message');
+  if (total >= 8) {
+    seal.className = 'modal-seal pass'; seal.textContent = '🏆';
+    title.textContent = 'Xuất Sắc!'; subtitle.textContent = 'Bài kiểm tra hoàn thành với kết quả rất tốt';
+    msg.textContent = 'Bạn đã thể hiện kiến thức Lịch Sử vững chắc. Tiếp tục phát huy tinh thần học tập này nhé!';
+  } else if (total >= 5) {
+    seal.className = 'modal-seal mid'; seal.textContent = '📜';
+    title.textContent = 'Khá Tốt'; subtitle.textContent = 'Bài kiểm tra đã hoàn thành';
+    msg.textContent = 'Kết quả khả quan. Hãy xem lại đáp án để củng cố những phần còn chưa vững.';
+  } else {
+    seal.className = 'modal-seal fail'; seal.textContent = '⚔';
+    title.textContent = 'Cần Cố Gắng'; subtitle.textContent = 'Bài kiểm tra đã hoàn thành';
+    msg.textContent = 'Đây là cơ hội để ôn luyện thêm. Hãy đọc kỹ đáp án và làm lại bài nhé!';
+  }
+  document.getElementById('score-big').textContent = total.toFixed(1);
+  document.getElementById('score-p1').textContent = `${p1Correct}/24 (${(p1Correct*0.25).toFixed(2)}đ)`;
+  document.getElementById('score-p2').textContent = `${p2Total.toFixed(2)}đ / 4đ`;
+  document.getElementById('score-time').textContent = timeUsed;
+  document.getElementById('score-pct').textContent = Math.round((total/10)*100) + '%';
+  document.getElementById('result-modal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('result-modal').classList.remove('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetQuiz() {
+  submitted = false; p1Answers = {}; p2Answers = {};
+  timeLeft = TOTAL_TIME; clearInterval(timerInterval);
+  document.getElementById('timer-text').textContent = '45:00';
+  document.getElementById('timer-text').className = '';
+  document.getElementById('timer-fill').style.width = '100%';
+  document.getElementById('timer-fill').className = 'timer-fill';
+  document.getElementById('timeup-banner').classList.remove('show');
+  document.getElementById('result-modal').classList.remove('active');
+  shuffledP1Indices = [...Array(part1Questions.length).keys()];
+  renderPart1(); renderPart2(); startTimer();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function init() {
+  renderPart1(); renderPart2(); startTimer();
+  const notice = document.createElement('div');
+  notice.className = 'shuffle-notice';
+  notice.textContent = '✦ Thứ tự câu hỏi đã được xáo trộn ngẫu nhiên ✦';
+  document.getElementById('part1-container').insertAdjacentElement('beforebegin', notice);
+}
+init();
+</script>
+</body>
+</html>
 
